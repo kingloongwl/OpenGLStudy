@@ -1,0 +1,8 @@
+LINK_DIRECTORIES( ${GLUT_LIB_DIR} )
+INCLUDE_DIRECTORIES( ${GLUT_INCLUDE_DIR}
+	${CMAKE_SOURCE_DIR}/GLTools )
+ADD_EXECUTABLE( book5112 book5112.cpp )
+TARGET_LINK_LIBRARIES( book5112
+	debug glut32D optimized glut32
+	debug GLTools optimized GLTools
+	)

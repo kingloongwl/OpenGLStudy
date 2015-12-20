@@ -1,0 +1,6 @@
+LINK_DIRECTORIES( ${GLUT_LIB_DIR} )
+INCLUDE_DIRECTORIES( ${GLUT_INCLUDE_DIR} )
+ADD_EXECUTABLE( EarthCoord EarthCoord.cpp )
+TARGET_LINK_LIBRARIES( EarthCoord
+	debug glut32D optimized glut32
+	)
