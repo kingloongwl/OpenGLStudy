@@ -5,5 +5,5 @@ ADD_EXECUTABLE( book75 book75.cpp )
 ADD_DEFINITIONS(-DGL_GLEXT_PROTOTYPES)
 TARGET_LINK_LIBRARIES( book75
 	debug glut32D optimized glut32
-	debug GLTools optimized GLTools
+	debug GLToolsd optimized GLTools
 	)

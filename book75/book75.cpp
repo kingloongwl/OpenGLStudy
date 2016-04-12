@@ -68,7 +68,7 @@ void RenderScene()
 	GLint iViewport[ 4 ];
 	GLint iLargest;
 	static GLubyte invertTable[256][3];
-
+/*
 	static GLfloat lumMat[16] = {
 		0.3f, 0.3f, 0.3f, 0.0f,
 		0.59f, 0.59f, 0.59f, 0.0f,
@@ -167,8 +167,8 @@ void RenderScene()
 	glMatrixMode( GL_MODELVIEW );
 	glDisable( GL_CONVOLUTION_2D );
 	glDisable( GL_COLOR_TABLE );
-
-	glutSwapBuffers();
+*/
+    glutSwapBuffers();
 }
 
 void ChangeSize( int w, int h )

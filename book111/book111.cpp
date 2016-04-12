@@ -343,10 +343,12 @@ void ChangeSize( int w, int h )
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
 	
-	gluPerspective( 35.0f, fAspect, 1.0f, 50.0f );
+	gluPerspective( 35.0f, fAspect, 1.0f, 500.0f );
 	
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity();
+
+	glTranslatef( 0.0f, 0.0f, -300.0f );
 }
 
 int main( int argc, char **argv )
