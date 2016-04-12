@@ -6,11 +6,10 @@
 
 #include "GLTools.h"
 
-#define SUN		1
-#define MERCURY	2
-#define VENUS	3
-#define	EARTH	4
-#define MARS	5
+#define EARTH	1
+#define MARS	2
+#define MOON1	3
+#define	MOON2	4
 
 void DrawSphere( float radius )
 {
@@ -34,36 +33,35 @@ void RenderScene()
 	glInitNames();
 	glPushName( 0 );
 	
-	glColor3f( 1.0f, 1.0f, 0.0f );
-	glLoadName( SUN );
-	DrawSphere( 15.0f );
-	
-	glColor3f( 0.5f, 0.0f, 0.0f );
 	glPushMatrix();
-	glTranslatef( 24.0f, 0.0f, 0.0f );
-	glLoadName( MERCURY );
-	DrawSphere( 2.0f );
-	glPopMatrix();
-	
-	glColor3f( 0.5f, 0.5f, 1.0f );
-	glPushMatrix();
-	glTranslatef( 60.0f, 0.0f, 0.0f );
-    glLoadName( VENUS );
-	DrawSphere( 4.0f );
-	glPopMatrix();
-	
 	glColor3f( 0.0f, 0.0f, 1.0f );
-	glPushMatrix();
-	glTranslatef( 100.0f, 0.0f, 0.0f );
 	glLoadName( EARTH );
-	DrawSphere( 8.0f );
+	DrawSphere( 30.0f );
+	
+	glTranslatef( 45.0f, 0.0f, 0.0f );
+	glColor3f( 0.85f, 0.85f, 0.85f );
+	glPushName( MOON1 );
+	DrawSphere( 5.0f );
+	glPopName();
 	glPopMatrix();
 	
-	glColor3f( 1.0f, 0.0f, 0.0f );
 	glPushMatrix();
-	glTranslatef( 150.0f, 0.0f, 0.0f );
-	glLoadName( MARS );
-	DrawSphere( 4.0f );
+	glColor3f( 1.0f, 0.0f, 0.0f );
+	glTranslatef( 100.0f, 0.0f, 0.0f );
+    glLoadName( MARS );
+	DrawSphere( 20.0f );
+	
+
+	glTranslatef( -40.0f, 40.0f, 0.0f );
+	glColor3f( 0.85f, 0.85f, 0.85f );
+	glPushName( MOON1 );
+	DrawSphere( 5.0f );
+	glPopName();
+	
+	glTranslatef( 0.0f, -80.0f, 0.0f );
+	glPushName( MOON2 );
+	DrawSphere( 5.0f );
+	glPopName();
 	glPopMatrix();
 	
     glPopMatrix();
@@ -73,29 +71,43 @@ void RenderScene()
 	
 }
 
-void ProcessPlanet( GLuint id )
+void ProcessPlanet( GLuint *pSelectBuff )
 {
-	switch ( id )
+	int id, count;
+	char cMessage[64];
+	strcpy( cMessage, "Error, no selection detected" );
+	
+	count = pSelectBuff[0];
+	id = pSelectBuff[3];
+	
+	switch( id )
 	{
-	case SUN:
-		glutSetWindowTitle( "You clicked on the Sun!" );
-		break;
-	case MERCURY:
-		glutSetWindowTitle( "You clicked on the Mercury!" );
-		break;
-	case VENUS:
-		glutSetWindowTitle( "You clicked on the Venus!" );
-		break;
 	case EARTH:
-		glutSetWindowTitle( "You clicked on the Earth!" );
+		strcpy( cMessage, "You clicked Earth." );
+		
+		if ( count == 2 )
+		{
+			strcat( cMessage, " - Specifically the moon." );
+		}
 		break;
 	case MARS:
-		glutSetWindowTitle( "You clicked on the Mars!" );
-		break;
-	default: 
-		glutSetWindowTitle( "Nothing was clicked on!" );
+		strcpy( cMessage, "You clicked Mars." );
+		
+		if ( count == 2 )
+		{
+			if ( pSelectBuff[4] == MOON1 )
+			{
+				strcat( cMessage, " - Specifically Moon #1." );
+			}
+			else
+			{
+				strcat( cMessage, " - Specifically Moon #2." );
+			}
+		}
 		break;
 	}
+	
+	glutSetWindowTitle( cMessage );
 }
 
 #define BUFFER_LENGTH 64
@@ -127,7 +139,7 @@ void ProcessSelection( int xPos, int yPos )
 	hits = glRenderMode( GL_RENDER );
 	
 	if ( hits == 1 )
-        ProcessPlanet( selectBuff[3] );
+        ProcessPlanet( selectBuff );
 	
 	glMatrixMode( GL_PROJECTION );
 	glPopMatrix();
