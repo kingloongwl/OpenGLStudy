@@ -64,11 +64,18 @@ void ProcessMenu( int value )
 
 void RenderScene()
 {
+	PFNGLCOLORTABLEPROC  glColorTable = (PFNGLCOLORTABLEPROC)wglGetProcAddress( "glColorTable" );
+	PFNGLCONVOLUTIONFILTER2DPROC glConvolutionFilter2D = (PFNGLCONVOLUTIONFILTER2DPROC)wglGetProcAddress( "glConvolutionFilter2D" );
+	PFNGLGETHISTOGRAMPROC glGetHistogram = (PFNGLGETHISTOGRAMPROC)wglGetProcAddress( "glGetHistogram" );
+	PFNGLHISTOGRAMPROC glHistogram = (PFNGLHISTOGRAMPROC)wglGetProcAddress( "glHistogram" );
+
 	GLint i;
 	GLint iViewport[ 4 ];
 	GLint iLargest;
 	static GLubyte invertTable[256][3];
-/*
+
+	
+
 	static GLfloat lumMat[16] = {
 		0.3f, 0.3f, 0.3f, 0.0f,
 		0.59f, 0.59f, 0.59f, 0.0f,
@@ -124,6 +131,7 @@ void RenderScene()
 				invertTable[i][2] = (GLubyte)(255 - i);
 			}
 
+			
 			glColorTable( GL_COLOR_TABLE, GL_RGB, 256, GL_RGB, GL_UNSIGNED_BYTE, invertTable );
 			glEnable( GL_COLOR_TABLE );
 			break;
@@ -167,7 +175,7 @@ void RenderScene()
 	glMatrixMode( GL_MODELVIEW );
 	glDisable( GL_CONVOLUTION_2D );
 	glDisable( GL_COLOR_TABLE );
-*/
+
     glutSwapBuffers();
 }
 
