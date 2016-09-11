@@ -32,10 +32,12 @@ PFNGLUSEPROGRAMOBJECTARBPROC		glUseProgramObjectARB;
 PFNGLGETINFOLOGARBPROC				glGetInfoLogARB;
 PFNGLGETOBJECTPARAMETERIVARBPROC	glGetObjectParameterivARB;
 
+#define FOG 1
+
 #define MAX_INFO_LOG_SIZE 255
 
-char vertexShaderFile[] = "../../book2200/222.vert";
-char fragmentShaderFile[] = "../../book2200/222.frag";
+char vertexShaderFile[] = "../../book2200/225.vert";
+char fragmentShaderFile[] = "../../book2200/225.frag";
 
 void DrawModels(void)
 {
@@ -102,7 +104,19 @@ void RenderScene()
 	glLightfv( GL_LIGHT0, GL_AMBIENT, ambientLight );
 	glLightfv( GL_LIGHT0, GL_DIFFUSE, diffuseLight );
 	
+
+	//glPolygonMode( GL_FRONT_AND_BACK, GL_POINT );
+	//glEnable( GL_VERTEX_PROGRAM_POINT_SIZE_ARB );
+	//glEnable( GL_POINT_SMOOTH );
+	//glEnable( GL_BLEND );
+
+#if FOG
+	glEnable( GL_FOG );
+#endif
+
 	DrawModels();
+
+	
 
 	if ( glGetError() != GL_NO_ERROR )
 		fprintf( stderr, "GL Error!\n" );
